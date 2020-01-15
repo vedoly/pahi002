@@ -6,7 +6,7 @@ from project.Config import *
 from uncleengineer import thaistock
 
 app = Flask(__name__)
-chat_state=[0]
+chat_state={"userid":"id"}
 ans=[3]
 
 Q1=["กุ๊งกิ๊งกิ๊ง","กุ๊งกิ๊งกุ๊งกิ๊ง","กุ๊งกุ๊งกิ๊งกิ๊งกิ๊ง","กุ๊งกุ๊งกุ๊งกุ๊ง","กุ๊งกุ๊งกุ๊งกิ๊ง","กิ๊งกิ๊งกิ๊งกิ๊ง"]
@@ -27,19 +27,22 @@ def webhook():
 
         Reply_token = payload['events'][0]['replyToken']
         print(payload)
+        user = payload["events"][0]['source']['userId']
+        print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
         print(Reply_token)
         message = payload['events'][0]['message']['text']
         print(message)
-       
-        if chat_state[0] == 0:
+        if(user not in chat_state):
+            chat_state[user]=0
+        if chat_state[user] == 0:
             ReplyMessage(Reply_token,"กุ้งกิ๊งกุ๊งกิ๊ง มีเท่าไหร่",Channel_access_token)
-            chat_state[0] = 1
+            chat_state[user] = 1
        
-        elif chat_state[0] == 1:
+        elif chat_state[user] == 1:
             if int(message) == ans[0] :
                 Reply_messasge = "ถูกต้องงงง พร้อมสำหรับข้อต่อไปหรือยัง"
                 ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
-                chat_state[0] = 2
+                chat_state[user] = 2
             
                 
             
@@ -47,10 +50,10 @@ def webhook():
                 Reply_messasge = "ผิดจ้า ลองตอบใหม่นะ"
                 ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
         
-        elif chat_state[0] == 2:
+        elif chat_state[user] == 2:
             Reply_messasge,ans[0]=game()
             ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
-            chat_state[0] = 1
+            chat_state[user] = 1
 
 
         return request.json, 200
