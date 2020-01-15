@@ -1,0 +1,4 @@
+Channel_secret = "4eaeb51be9d7b0cae5310d6d103d1e40"
+Channel_access_token = "iBqEOyCnmwjKpvlq/vaGN4fGNUdV6fU8hN1hCGAPFJ1V/L5grHoetonkO/+2qL4lwaN4eIbf8f2hdMxI/1CMlfjrjLeBUebINHREHjNWXfR8fGsRz1Y5I1B0r3SEkEnQabYVvmxGTVMsNJcvY1PiSQdB04t89/1O/w1cDnyilFU="
+basic_id = "@564oyosm"
+line_bot_api = Channel_access_token
